@@ -1,0 +1,18 @@
+In Version 1, I intentionally kept the frontend unchanged.
+This highlights that the vulnerability in Version 0 was not related to HTML or CSS, but to the fact that authentication logic was executed entirely on the client side.
+
+In this version, the browser no longer decides authentication. Through JS we send the credentials to a web server using an API.
+Flask validates the credentials and returns a JSON response and a status code.
+As a result, in this version we have a server-side authentication.
+
+In this case, brute force becomes more relevant. We have a real server endpoint which is prone to brute force attacks, as no safety rules are introduced. 
+Some of the rules we could implement are account lockout, CAPTCHA and IP-rate limits to preserve brute force attacks, DDoS and resource exhaustion. 
+
+We intentionally created a vulnerability in app.py . Through insecure definition of error messages, hackers can test usernames and learn which users/ passwords exists.
+So, even though authentication is server - side, responses can leak sensitive information.
+
+Also, debug mode in the run function of our server, adds a critical vulnerabilty to our login functionality. We intentinally define a /crash endpoint which prints the error logs right on the browser as shown in the screenshot of the folder.
+Although, it helps in the development stage, we must be sure that debug mode is removed in production.
+
+When a users wants to login:
+Client ---> Login in frontend {username, password} ---> JS request to Flask web server ---> Validation ---> Response success/failure

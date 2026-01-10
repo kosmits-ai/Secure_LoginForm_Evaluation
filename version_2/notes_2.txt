@@ -1,0 +1,42 @@
+This version introduces the creation of a simple SQLite DB where users credentials are stored.
+
+In this version, hard-coded credentials are not present in the app logic.
+
+In case a user inserts unknown pair of username and password, a generic error message is shown.
+With this generic message, malicious actors can not extract further information for the presence or not of username or password as in previous version.
+
+In the original version we use a parametrized query:
+cursor.execute("SELECT * FROM users WHERE username = ?", (username,))
+If we accidently did :
+cursor.execute(f"SELECT * FROM users WHERE username = '{username}'")
+we introduce an SQL injection vulnerability.
+Why?
+Because in the first case SQL query structure is well defined and separated while in the second one is not. Specifically, in the 1st case user input is handled as data (seperated argument in select),
+while in the 2nd one it can be translated as SQL injected code by a malicious user.
+
+In the vulnerable scenario:
+User submits as username:
+admin' OR '1'='1
+The final SQL sent to the database becomes:
+SELECT * FROM users WHERE username = 'admin' OR '1'='1'
+As a reult an attacker can extract all the rows.
+
+In the correct security design:
+User submits as username:
+admin' OR '1'='1
+The final SQL sent to the database becomes:
+SELECT * FROM users WHERE username = 'admin' OR '1'='1'
+but the whole user input admin' OR '1'='1' is treated as a possible username.
+
+To sum up, In the secure implementation, the SQL query is parsed before user input is bound.
+As a result, injected characters such as quotes or SQL operators lose their special meaning and are treated strictly as data.
+
+For illustartion purposes we exploit our login form with SQL injection as shown in the screenshot of version_2 folder.
+Through SQL injection we bypass username authentication and randomly guess the weak credential password = 'password'.
+
+Although the SQL injection vulnerability demonstrated in this version is caused by insecure query construction, it is also important to keep database engines and language libraries up to date.
+Outdated versions of SQLite or database drivers may contain known vulnerabilities that could be exploited independently of application logic flaws.
+For this purpose, we can use vulnerabiloty scanning tools and dependancy audits to identify outdated or vulnerable software components.
+
+In conclusion, defense in depth matters. Even if we fixed hard-coded credentials by using hashed passwords, we started using genereic error messages,
+a slight change in the SQL query can introduce serious Authentication Failures and Injections

@@ -1,0 +1,29 @@
+This is the final version of this personal project. It incorporates widely adopted security best practices to protect web applications against the common vulnerabilities introduced and analyzed in the previous versions.
+
+In the protected version, we designed and implemented a login workflow where:
+
+SQL queries are parameterized, preventing SQL injection attacks
+
+Passwords are securely hashed before storage
+
+Session-based authentication is enforced with proper authorization checks
+
+XSS-safe rendering is applied by avoiding unsafe DOM insertion and relying on server-side escaping
+
+CSRF protection is implemented using server-side tokens to validate user intent
+
+Debug mode is disabled, preventing sensitive information leakage
+
+As a result, this version represents a minimal yet securely designed web application that addresses all vulnerabilities demonstrated throughout the project.
+
+This is a minimal but safely designed web application that addresses all vulnerabilities demonstrated in previous version.
+
+This is not just a re-telling of well-known vulnerabilities.
+This project propose for educational purposes:
+1)Naive design
+2)Detection of vulnerabilities / security analysis
+3)Partial fixes- progressively increasement of complexity in web application
+4)Deeper undertanding of web security layers
+5)Final hardened version
+
+Through this progression, the project demonstrates how insecure design decisions lead to vulnerabilities, and how layered defenses can be applied to build safer web applications.

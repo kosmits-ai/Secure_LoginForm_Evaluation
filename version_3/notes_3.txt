@@ -1,0 +1,13 @@
+In this version, we introduce sessions and cookies to highlight the distinction between authentication and authorization. 
+Authentication verifies a user’s identity during login, while authorization determines what actions or resources an authenticated user is allowed to access.
+
+After successful authentication, the server creates a session representing the authenticated user.
+A session cookie is stored in the user’s browser and automatically sent with each request. This allows the server to identify the user and retrieve trusted session data.
+Authorization decisions are then enforced server-side by checking session attributes, such as the user’s identity, before granting access to protected resources.
+
+To demonstrate Broken Access Control (OWASP A01), we intentionally implemented a vulnerable endpoint that does not validate session state.
+As a result, both authenticated and unauthenticated users can access the vulnerable dashboard directly via its URL.
+In contrast, a secure endpoint properly enforces authorization checks and restricts access to authenticated users only.
+
+A logout endpoint is also implemented to invalidate the session by clearing server-side session data.
+Although the session cookie may still exist in the browser, it no longer represents an authenticated state.

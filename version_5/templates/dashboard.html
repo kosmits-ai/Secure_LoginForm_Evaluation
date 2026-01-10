@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+</head>
+<body>
+
+  <h2>Dashboard</h2>
+
+  <h3>Current status (server-side)</h3>
+  <p>{{ session.get("status", "No status set") }}</p>
+
+  <h3>Update your status</h3>
+  <form method="POST" action="/dashboard/update_status">
+    <input
+      type="text"
+      name="status"
+      placeholder="What's on your mind?"
+      autocomplete="off"
+    >
+    <button type="submit">Update</button>
+  </form>
+
+  <p><a href="/logout">Logout</a></p>
+
+</body>
+</html>
+

@@ -1,0 +1,45 @@
+In this version, we introduce the Cross-Site Scripting (XSS) vulnerability. XSS is a client-side vulnerability that allows malicious actors to inject executable code into a web application, which is then executed in the victim’s browser.
+
+There are multiple types of XSS vulnerabilities. In this implementation, we demonstrate a DOM-based XSS vulnerability. DOM XSS occurs entirely on the client side, where malicious input is processed and rendered by frontend JavaScript logic without the server ever seeing the injected payload.
+
+Root Cause
+
+The vulnerability arises because user-controlled input is inserted into the DOM using innerHTML, which causes the browser to interpret the input as HTML rather than plain text. As a result, any markup or script-like content provided by the user is parsed and rendered by the browser.
+
+This allows malicious users to inject HTML elements or JavaScript code into the page, effectively modifying the DOM structure and behavior of the application.
+
+Impact
+
+Through XSS, an attacker can:
+
+Inject and execute arbitrary JavaScript in the victim’s browser
+
+Modify the page layout or content
+
+Interact with the application as the victim user
+
+In a session-based application, this impact is significantly amplified. Injected scripts execute in the context of the authenticated user, allowing attackers to abuse the user’s privileges and perform actions on their behalf.
+
+Resolution
+
+The vulnerability is resolved by replacing innerHTML with textContent when rendering user input:
+
+innerHTML interprets input as HTML (unsafe)
+
+textContent treats input strictly as data (safe)
+
+This ensures that user-supplied input is rendered as plain text and cannot be executed by the browser.
+
+Relation to Other Injection Vulnerabilities
+
+Both XSS and SQL injection are caused by improper handling of untrusted input, where user-supplied data is processed as executable code instead of being treated as data.
+
+However, they occur at different layers:
+
+SQL Injection targets the backend database by injecting SQL logic
+
+XSS targets the browser by injecting HTML or JavaScript
+
+Although they share a common root cause, they represent distinct attack vectors with different execution environments and impacts.
+
+In conclusion, XSS occurs when untrusted input is rendered as executable code in the browser rather than being treated as data.

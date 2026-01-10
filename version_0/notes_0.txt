@@ -1,0 +1,13 @@
+The version 0 is a dummy illustration of a login form front end. This case is not actually realistic in real life implementations.
+As we notice from the source code, we just create a form when a user can input his/her username and the according password.
+If those values match with hard-coded credentials then we print a success message. Otherwise, we print an error/ try-again message.
+
+First of all, the biggest maybe vulnerability in this case is related with insecure design. Everything is controlled from the front end. 
+We have not implemented a back end yet, so there is not communication with a server or a database.So, we introduce the first critical vulnerability, which is Client-Side Authentication.
+We must notice that all source code in the client side, is accesible from users.
+A malicious actor, can inspect the source code and find related credentials such as username: admin and password: password. 
+This leads to authentication failures as everyone can be authenticated even though they should not.
+
+Of course, there is not a brute force protection. As a secondary weakness, expect from just inspecting the hard-coded credentials from source code, hackers can try all possible combinations for well-known and usual passwords (https://github.com/danielmiessler/SecLists/tree/master/Passwords) and get the success message from the server, as we have not defined a rate limit.
+
+This is a dummy version, so there is no functionality at all, but we start our analysis from this point.

@@ -1,0 +1,37 @@
+In this version, we analyze the Cross-Site Request Forgery (CSRF) vulnerability.A CSRF (Cross-Site Request Forgery) vulnerability allows attackers to trick authenticated users' browsers into performing unwanted actions on trusted websites, like changing passwords or making transactions, by exploiting active sessions and cookies without the user's knowledge. 
+
+By Version 4, the application already contains all the necessary conditions for a CSRF vulnerability. In Version 5, we explicitly demonstrate and analyze this issue.
+
+For illustration purposes, we introduce a vulnerable endpoint, /dashboard/update_status. The logic implemented in this endpoint highlights the core design flaw that leads to CSRF vulnerabilities. Specifically, session cookies are automatically sent by the browser to the server, even when a request originates from a different website.
+
+Vulnerability Explanation
+
+In the update_status function, we conceptually analyze how a CSRF attack can be leveraged to perform unintended actions on behalf of an authenticated user.
+
+First, a user logs into the web application. As a result:
+
+Session data is stored on the server
+
+A session cookie is stored in the user’s browser
+
+If an authenticated user later visits an attacker-controlled website (for example, through phishing or a malicious advertisement), that website can trigger a POST request to the vulnerable /dashboard/update_status endpoint.
+
+The browser automatically attaches the session cookie to the outgoing HTTP request. Because the server authorizes requests solely based on the presence of this cookie, it incorrectly treats the request as legitimate. As a result, the user’s status can be updated without the user’s intent or interaction with the application.
+
+Root Cause
+
+Although the endpoint correctly verifies that the user is authenticated via session data, it does not validate whether the request was intentionally initiated by the user.
+
+Because browsers automatically attach cookies to outgoing requests, a third-party site can trigger authenticated actions on behalf of the user, resulting in a CSRF vulnerability.
+
+Demonstration and Browser Mitigations
+
+To demonstrate this behavior, we created an attacker.html page and hosted it on a different localhost port. The goal was to manipulate the authenticated user’s status without their intent.
+
+The /dashboard/update_status endpoint is intentionally vulnerable because it authorizes requests purely based on the presence of a session cookie, without validating the request origin or user intent.
+
+During the attempted cross-site POST request, the server returned a 401 Unauthorized response. This occurred because the browser did not include the session cookie due to modern SameSite cookie policies.
+
+Security Implications
+
+This browser behavior mitigates certain CSRF scenarios but does not eliminate the vulnerability class. Real-world applications cannot rely solely on browser-level protections. Server-side CSRF defenses remain necessary, especially in cases where cross-site workflows are required.

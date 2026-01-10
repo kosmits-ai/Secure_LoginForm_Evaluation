@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard - {{ mode }} mode</title>
+</head>
+<body>
+
+  <h3>Update your status</h3>
+
+  <form method="POST" action="/dashboard/update_status">
+    <!-- CSRF token -->
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+
+    <input
+      type="text"
+      name="status"
+      placeholder="What's on your mind?"
+      autocomplete="off"
+      required
+    >
+
+    <button type="submit">Update</button>
+    </form>
+    <h3>Current status</h3>
+    <p>{{ session.get("status", "No status set") }}</p>
+    <p><a href='/logout'>Logout</a></p>
+
+</body>
+</html>
