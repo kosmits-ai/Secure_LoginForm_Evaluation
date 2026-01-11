@@ -5,11 +5,6 @@ from werkzeug.security import check_password_hash
 app = Flask(__name__)
 app.secret_key = "vulnerable_app_secret_key"
 
-app.config.update(
-    SESSION_COOKIE_SAMESITE="None",
-    SESSION_COOKIE_SECURE=False,   # True requires HTTPS
-)
-
 def get_db():
     connection = sqlite3.connect('login.db')
     connection.row_factory = sqlite3.Row
