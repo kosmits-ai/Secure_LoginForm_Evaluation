@@ -37,12 +37,12 @@ Dummy implementation which is not used in real life implementations.
 Security vulnerabilities: Insecure design (client-side logic is accessible from everyone), Authentication failures (hard-coded credentials in client-side).
 
 #### Version 1 - Server Side Authentication
-Authentication moved to the back-end (Client ---> Login in frontend {username, password} ---> JS request to Flask web server ---> Validation ---> Response success/failure).
+Authentication moved to the back-end (`Client ---> Login in frontend {username, password} ---> JS request to Flask web server ---> Validation ---> Response success/failure`).
 Still no database or proper identity management.
 Bad design of JSON responses from web server which can leak sensitive information.
 Debug mode is ON in Flask web server, very dangerous for production systems.
 
-Security vulnerabilities: No brute-force protection (/login endpoint can crash), security misconfigurations (debug mode ON), Insecure design (even if authentication is server-side, JSON responses can leak sensitive information, hard-coded credentials server-side)
+Security vulnerabilities: No brute-force protection (`/login` endpoint can crash), security misconfigurations (debug mode ON), Insecure design (even if authentication is server-side, JSON responses can leak sensitive information, hard-coded credentials server-side)
 
 For example, with debug mode ON malicious actors can extract valuable information from the error logs in the browser:
 ![Intentional design of crash endpoint](version_1/debug_flask_vulnerability.png)
@@ -58,7 +58,7 @@ Security vulnerabilities: SQL injection caused by insecure query extraction. Use
 #### Version 3 - Authentication vs Authorization
 Session-based authentication is introduced.
 Missing authorization checks in protected routes.
-/logout endpoint is also implemented to invalidate the session by clearing server-side session data.
+`/logout` endpoint is also implemented to invalidate the session by clearing server-side session data.
 
 Authentication verifies a user’s identity during login, while authorization determines what actions or resources an authenticated user is allowed to access.
 After successful authentication, the server creates a session representing the authenticated user.
