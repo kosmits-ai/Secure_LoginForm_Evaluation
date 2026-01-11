@@ -1,6 +1,6 @@
 ## Security Login Form Evolution - A security-focused web application
 ### Introduction
-Inspired by Hack the Box Academy module "Introduction to Web Applications", this project demonstrates the evolution of a web application (login form) from an insecure design to a hardened, more security-aware implementation.
+Inspired by Hack the Box Academy module _"Introduction to Web Applications"_, this project demonstrates the evolution of a web application (login form) from an insecure design to a hardened, more security-aware implementation.
 Each version is a more complicated one compared with the previous ones.
 Rather than re-telling about well known vulnerabilities in web applications, the project follows a progressive security model, where each version introduces or exposes a specific class of vulnerability. These vulnerabilities are then analyzed and mitigated in later version, leading to a final protected implementation.
 
@@ -8,15 +8,15 @@ The goal of this project is educational: to undertand why vulnerabilities occur,
 
 ### Project philosophy
 Modern web vulnerabilities are usually a result of:
-naive design solutions.
-misplaced trust in client-side.
-misunderstand of different web security layers.
+- naive design solutions.
+- misplaced trust in client-side.
+- misunderstand of different web security layers.
 
 This project was intentionally built by:
-Starting with naive implementations.
-Analyzing their weaknesses.
-Incrementally increasing application complexity.
-Applying security controls as understanding deepened.
+- Starting with naive implementations.
+- Analyzing their weaknesses.
+- Incrementally increasing application complexity.
+- Applying security controls as understanding deepened.
 
 ### Threat Model
 
