@@ -25,8 +25,8 @@ def login():
     connection = get_db()
     cursor = connection.cursor()
 
-    cursor.execute("SELECT * FROM users WHERE username = ?", (username,))
-    #cursor.execute(f"SELECT * FROM users WHERE username = '{username}'")   #this would be vulnerable to SQL injection
+    #cursor.execute("SELECT * FROM users WHERE username = ?", (username,))
+    cursor.execute(f"SELECT * FROM users WHERE username = '{username}'")   #this would be vulnerable to SQL injection
 
     user = cursor.fetchone()
     connection.close()
